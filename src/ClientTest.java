@@ -5,15 +5,17 @@ import java.security.KeyStore;
 public class ClientTest {
     private static final String SERVER_ADDRESS = "localhost";
     private static final int SERVER_PORT = 8443;
-    private static final String TRUSTSTORE_PATH = "src/resources/keystore.jks";
-    private static final String TRUSTSTORE_PASSWORD = "mypassword";
+    //private static final String TRUSTSTORE_PATH = "C:\\Users\\costa\\keystore.jks"; // Path del keystore
+    private static final String TRUSTSTORE_PATH = "src/keystore/keystore.jks";
+
+    private static final String TRUSTSTORE_PASSWORD = "123456"; // Password del keystore
 
     public static void main(String[] args) {
         try {
             // Configura SSL per il client
             SSLContext sslContext = SSLContext.getInstance("TLS");
             TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
-            KeyStore trustStore = KeyStore.getInstance("JKS");
+            KeyStore trustStore = KeyStore.getInstance("PKCS12");
 
             try (FileInputStream fis = new FileInputStream(TRUSTSTORE_PATH)) {
                 trustStore.load(fis, TRUSTSTORE_PASSWORD.toCharArray());
@@ -40,4 +42,3 @@ public class ClientTest {
         }
     }
 }
-

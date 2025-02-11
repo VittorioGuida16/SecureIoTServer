@@ -1,12 +1,13 @@
 import javax.net.ssl.*;
 import java.io.*;
-import java.net.ServerSocket;
 import java.security.KeyStore;
 
 public class ServerComm {
     private static final int PORT = 8443; // Porta HTTPS
-    private static final String KEYSTORE_PATH = "src/resources/keystore.jks";
-    private static final String KEYSTORE_PASSWORD = "mypassword"; // Cambia con la tua password!
+    //private static final String KEYSTORE_PATH = "C:\\Users\\costa\\keystore.jks";  // Path del keystore
+    private static final String KEYSTORE_PATH = "src/keystore/keystore.jks";
+
+    private static final String KEYSTORE_PASSWORD = "123456"; // Password del keystore
 
     public static void main(String[] args) {
         try {
@@ -28,7 +29,7 @@ public class ServerComm {
 
     // Metodo per configurare il server SSL
     private static SSLServerSocketFactory configureSSL() throws Exception {
-        KeyStore keyStore = KeyStore.getInstance("JKS");
+        KeyStore keyStore = KeyStore.getInstance("PKCS12"); // Usa PKCS12 per il keystore creato
         keyStore.load(new FileInputStream(KEYSTORE_PATH), KEYSTORE_PASSWORD.toCharArray());
 
         KeyManagerFactory kmf = KeyManagerFactory.getInstance("SunX509");
@@ -40,4 +41,3 @@ public class ServerComm {
         return sslContext.getServerSocketFactory();
     }
 }
-
